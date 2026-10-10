@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOXA — Elegant AI Voice Studio | ElevenLabs Text-to-Speech</title>
+  <meta name="description" content="VOXA is a minimalist, editorial AI voice studio powered by the ElevenLabs API. Convert written text into expressive, natural, human-like speech.">
+
+  <!-- Google Fonts: Inter & Geist Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       Minimal Navigation Bar
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="/" class="brand-logo" id="brand-logo-link">
+        <div class="soundwave-icon" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span>VOXA</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#studio-section" class="nav-link">Studio</a></li>
+          <li><a href="#" class="nav-link" id="nav-voices-link">Voices</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#docs" class="nav-link">Documentation</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- API Connection Status Badge -->
+        <button class="api-status-badge" id="api-status-badge" title="Manage ElevenLabs API configuration">
+          <span class="status-dot warning" id="api-status-dot"></span>
+          <span id="api-status-text">Checking API...</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+
+        <a href="#studio-section" class="btn btn-primary btn-sm" id="nav-open-studio-btn">
+          Open Studio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       Hero Section
+       ======================================================================== -->
+  <section class="hero-section">
+    <div class="hero-badge">
+      <span class="pill">ELEVENLABS TTS</span>
+      <span>Expressive Neural Voice Synthesis</span>
+    </div>
+
+    <h1 class="hero-headline">Give your words a voice.</h1>
+
+    <p class="hero-subtitle">
+      Turn any text into expressive, natural-sounding speech with AI voices designed to sound human.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#studio-section" class="btn btn-primary btn-lg" id="hero-start-creating-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+        Start Creating
+      </a>
+      <button class="btn btn-secondary btn-lg" id="hero-explore-voices-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="23"/>
+          <line x1="8" y1="23" x2="16" y2="23"/>
+        </svg>
+        Explore Voices
+      </button>
+    </div>
+
+    <!-- Hero Interactive Demo Player -->
+    <div class="hero-demo-card">
+      <div class="hero-demo-header">
+        <div class="demo-voice-info">
+          <div class="demo-avatar">R</div>
+          <div class="demo-voice-text">
+            <h4>Rachel</h4>
+            <p>American • Calm & Natural Narration</p>
+          </div>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="hero-demo-play-btn" aria-label="Audition Rachel sample">
+          <span id="hero-demo-icon-play">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          </span>
+          <span id="hero-demo-icon-pause" style="display: none;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </span>
+          <span>Audition Sample</span>
+        </button>
+      </div>
+
+      <div class="demo-script-quote">
+        “Turn any text into expressive, natural-sounding speech with AI voices designed to sound human.”
+      </div>
+
+      <!-- Waveform Canvas Visualizer -->
+      <div class="waveform-canvas-container" style="height: 48px;">
+        <canvas id="hero-waveform-canvas" class="waveform-canvas"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Main Text-to-Speech Studio
+       ======================================================================== -->
+  <main class="studio-section" id="studio-section">
+    <div class="studio-header">
+      <div class="studio-title-group">
+        <h2>Voice Studio</h2>
+        <p>Draft your script, tune vocal acoustics, and synthesize studio-grade audio.</p>
+      </div>
+      <div>
+        <span class="history-badge-local" style="font-size: 0.78rem;">v2.5 Engine</span>
+      </div>
+    </div>
+
+    <div class="studio-grid">
+      <!-- Left Panel: Text Editor -->
+      <section class="editor-panel">
+        <div class="editor-toolbar">
+          <div class="editor-presets">
+            <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Presets:</span>
+            <button class="preset-chip" data-preset="podcast">Podcast Intro</button>
+            <button class="preset-chip" data-preset="narration">Story Narration</button>
+            <button class="preset-chip" data-preset="keynote">Product Keynote</button>
+            <button class="preset-chip" data-preset="meditation">Mindfulness</button>
+          </div>
+          <div class="editor-actions">
+            <button class="btn btn-ghost btn-sm" id="btn-clear-text" title="Clear Script">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="editor-textarea-wrapper">
+          <textarea
+            id="script-editor-textarea"
+            class="editor-textarea"
+            placeholder="Paste your script here. Your next voice starts with a few words…"
+            spellcheck="true"
+          >Welcome to VOXA Studio. With the ElevenLabs Text-to-Speech API, your written narrative transforms into expressive, natural-sounding audio with lifelike emotion and authentic human cadences.</textarea>
+        </div>
+
+        <div class="editor-footer">
+          <div class="editor-metrics">
+            <span class="metric-item" title="Character count">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+              <span id="char-counter">0 / 5,000</span>
+            </span>
+            <span class="metric-item" title="Estimated audio duration">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="est-duration">~0s audio</span>
+            </span>
+          </div>
+          <div style="font-size: 0.74rem; color: var(--text-muted);">
+            Multilingual supported
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Voice Controls -->
+      <aside class="controls-panel">
+        <!-- Voice Selection Card -->
+        <div class="control-card">
+          <div class="control-card-header">
+            <span class="control-card-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+              Selected Voice
+            </span>
+            <button class="btn btn-ghost btn-sm" id="btn-change-voice" style="color: var(--accent); font-weight: 600;">
+              Browse Voices →
+            </button>
+          </div>
+
+          <!-- Active Voice Summary Box -->
+          <div class="active-voice-box" id="active-voice-card-box" title="Click to change voice">
+            <div class="voice-meta-left">
+              <div class="voice-avatar-badge" id="active-voice-avatar">R</div>
+              <div class="voice-text-details">
+                <h4 id="active-voice-name">Rachel</h4>
+                <div class="voice-labels-row" id="active-voice-tags">
+                  <span class="tag-pill accent">American</span>
+                  <span class="tag-pill">Female</span>
+                  <span class="tag-pill">Calm</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-secondary btn-sm" id="btn-audition-active-voice" title="Audition Voice Sample" style="padding: 0.35rem 0.65rem;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+              </button>
+            </div>
+          </div>
+          <p id="active-voice-desc" style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+            Calm, soothing, and clear voice. Great for narrations, audiobooks, and meditations.
+          </p>
+        </div>
+
+        <!-- Model Selection Card -->
+        <div class="control-card">
+          <div class="model-select-wrapper">
+            <label for="select-tts-model" class="field-label">
+              <span>Synthesis Model</span>
+              <span style="font-weight: 400; color: var(--text-secondary); font-size: 0.74rem;">Latency & Language</span>
+            </label>
+            <select id="select-tts-model" class="field-select">
+              <option value="eleven_multilingual_v2" selected>Eleven Multilingual v2 (Recommended • 29 Languages)</option>
+              <option value="eleven_turbo_v2_5">Eleven Turbo v2.5 (Low Latency • Fast Synthesis)</option>
+              <option value="eleven_flash_v2_5">Eleven Flash v2.5 (Ultra Fast ~75ms • Cost Effective)</option>
+              <option value="eleven_monolingual_v1">Eleven English v1 (Classic English Legacy)</option>
+            </select>
+          </div>
+
+          <!-- Fine-Tuning Sliders -->
+          <div class="control-card-header" style="margin-top: 1rem; margin-bottom: 0.5rem;">
+            <span class="control-card-title" style="font-size: 0.88rem;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              Voice Settings
+            </span>
+            <button class="btn btn-ghost btn-sm" id="btn-reset-settings" style="font-size: 0.75rem; padding: 0.2rem 0.45rem;">
+              Reset Defaults
+            </button>
+          </div>
+
+          <div class="sliders-group">
+            <!-- Stability -->
+            <div class="slider-item">
+              <div class="slider-header">
+                <span class="slider-name" title="Lower values make speech more variable and expressive; higher values make it more consistent.">
+                  Stability
+                </span>
+                <span class="slider-value" id="val-stability">50%</span>
+              </div>
+              <input type="range" id="slider-stability" class="slider-input" min="0" max="1" step="0.05" value="0.50">
+            </div>
+
+            <!-- Similarity -->
+            <div class="slider-item">
+              <div class="slider-header">
+                <span class="slider-name" title="Controls how closely the synthesis matches the original speaker's timbre.">
+                  Clarity + Similarity
+                </span>
+                <span class="slider-value" id="val-similarity">75%</span>
+              </div>
+              <input type="range" id="slider-similarity" class="slider-input" min="0" max="1" step="0.05" value="0.75">
+            </div>
+
+            <!-- Style Exaggeration -->
+            <div class="slider-item">
+              <div class="slider-header">
+                <span class="slider-name" title="Amplifies emotional style of the speaker. Keep low for natural narration.">
+                  Style Exaggeration
+                </span>
+                <span class="slider-value" id="val-style">0%</span>
+              </div>
+              <input type="range" id="slider-style" class="slider-input" min="0" max="1" step="0.05" value="0.0">
+            </div>
+
+            <!-- Speaker Boost -->
+            <div class="toggle-row">
+              <span style="font-weight: 500; color: var(--text-primary); font-size: 0.82rem;" title="Boosts overall speaker presence and vocal clarity.">
+                Speaker Boost
+              </span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="toggle-speaker-boost" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generation Trigger Area -->
+        <div class="generate-wrapper">
+          <button class="btn-generate" id="btn-generate-speech">
+            <span id="btn-generate-text" style="display: flex; align-items: center; gap: 0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v20M17 5v14M7 9v6M2 11v2M22 11v2"/>
+              </svg>
+              Generate Speech
+            </span>
+          </button>
+          <div class="shortcut-hint">
+            Press <kbd style="background:var(--bg-muted); padding:1px 5px; border-radius:4px; font-family:var(--font-mono);">Ctrl + Enter</kbd> to synthesize
+          </div>
+
+          <!-- Error Notification Banner -->
+          <div class="error-banner" id="studio-error-banner" style="display: none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <div class="error-banner-content" id="studio-error-message"></div>
+            <button class="error-banner-close" id="btn-close-error-banner" aria-label="Dismiss">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ========================================================================
+         Studio Audio Player (Shown on Generation)
+         ======================================================================== -->
+    <section class="audio-player-card" id="studio-audio-player-card" style="display: none;">
+      <div class="player-header">
+        <div class="player-details">
+          <div class="player-details-avatar" id="player-voice-avatar">R</div>
+          <div class="player-title-text">
+            <h3 id="player-voice-title">Rachel</h3>
+            <p id="player-voice-desc">Eleven Multilingual v2 • Ready for playback</p>
+          </div>
+        </div>
+        <div class="player-actions-top">
+          <button class="btn btn-secondary btn-sm" id="player-btn-download">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download MP3
+          </button>
+          <button class="btn btn-ghost btn-sm" id="player-btn-regenerate" title="Regenerate with current settings">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Regenerate
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Scrubbable Waveform Canvas -->
+      <div class="waveform-canvas-container" title="Click anywhere to scrub playback">
+        <canvas id="studio-waveform-canvas" class="waveform-canvas"></canvas>
+        <div class="waveform-progress-overlay" id="studio-waveform-progress"></div>
+      </div>
+
+      <!-- Controls Bar -->
+      <div class="player-controls-row">
+        <div class="player-playback-group">
+          <button class="btn-play-pause" id="player-btn-play" aria-label="Play or Pause">
+            <svg id="player-icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            <svg id="player-icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display: none;"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+          <span class="timecode-display" id="player-time-display">0:00 / 0:00</span>
+        </div>
+
+        <div class="player-utilities-group">
+          <!-- Volume Slider -->
+          <div class="volume-control-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-secondary);"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <input type="range" id="player-volume-slider" class="volume-slider" min="0" max="1" step="0.05" value="1" title="Volume">
+          </div>
+
+          <!-- Playback Speed -->
+          <select id="player-speed-select" class="speed-select" title="Playback Speed">
+            <option value="0.75">0.75x</option>
+            <option value="1" selected>1.0x</option>
+            <option value="1.25">1.25x</option>
+            <option value="1.5">1.5x</option>
+            <option value="2">2.0x</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       Recent Generations History
+       ======================================================================== -->
+  <section class="history-section" id="history-section">
+    <div class="history-header">
+      <div class="history-title-group">
+        <h3>
+          Recent Generations
+          <span class="history-badge-local">Locally Saved (IndexedDB)</span>
+        </h3>
+      </div>
+      <div>
+        <button class="btn btn-ghost btn-sm" id="btn-clear-history" style="font-size: 0.78rem;">
+          Clear History
+        </button>
+      </div>
+    </div>
+
+    <!-- Empty State Placeholder -->
+    <div class="empty-history-box" id="empty-history-placeholder">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <p style="font-size: 0.95rem; font-weight: 500; color: var(--text-primary);">No generations yet</p>
+      <p style="font-size: 0.82rem; margin-top: 0.25rem;">Synthesize your first script above to build your local studio history.</p>
+    </div>
+
+    <!-- Grid of History Items -->
+    <div class="history-grid" id="history-cards-container"></div>
+  </section>
+
+  <!-- ========================================================================
+       How It Works Section
+       ======================================================================== -->
+  <section class="how-it-works-section" id="how-it-works">
+    <div class="section-headline">
+      <h3>Studio Architecture</h3>
+      <p>How VOXA harnesses ElevenLabs neural weights to generate lifelike speech.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>Script & Text Shaping</h4>
+        <p>Input your paragraphs with natural punctuation. VOXA validates lengths, calculates duration acoustics, and optimizes formatting for expressive cadence.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h4>Neural Acoustic Tuning</h4>
+        <p>Select voice profiles and balance Stability vs. Variability. Fine-tune timbre similarity, style exaggeration, and speaker presence boost.</p>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h4>Sub-Second Generation</h4>
+        <p>Our secure backend communicates with ElevenLabs over TLS. High-fidelity audio is streamed to your browser with instant playback and local offline caching.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Documentation Reference
+       ======================================================================== -->
+  <section class="how-it-works-section" id="docs" style="padding-top: 2rem;">
+    <div class="section-headline">
+      <h3>ElevenLabs Integration Guide</h3>
+      <p>Technical reference for developers and audio engineers.</p>
+    </div>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-card); border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow-xs);">
+      <h4 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem;">Environment & API Authentication</h4>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+        VOXA implements a security-first architecture. Your ElevenLabs credentials can be provided via server-side environment variables in <code>.env.local</code> as <code>ELEVENLABS_API_KEY</code>, or stored securely in your client browser via the Studio Settings panel. Keys are never logged or exposed in client bundles.
+      </p>
+      <div style="background: #FAFAF8; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-primary);">
+        # .env.local<br>
+        ELEVENLABS_API_KEY=sk_...<br>
+        PORT=3000
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Footer
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-logo" style="cursor: default;">
+            <div class="soundwave-icon" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <span>VOXA</span>
+          </div>
+          <p>An editorial AI voice studio designed for creators, narrators, and audio professionals who demand natural speech fidelity.</p>
+        </div>
+
+        <ul class="footer-nav">
+          <li><a href="#studio-section">Studio</a></li>
+          <li><a href="#" id="footer-voices-link">Voices</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#docs">Documentation</a></li>
+          <li><a href="#" id="footer-settings-link">API Settings</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 VOXA Audio Studio. All rights reserved.</div>
+        <div class="footer-powered-badge">
+          <span>Powered by</span>
+          <strong>ElevenLabs API</strong>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       MODAL: Voice Explorer
+       ======================================================================== -->
+  <div class="modal-backdrop" id="voices-modal" role="dialog" aria-modal="true" aria-labelledby="voices-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title">
+          <h3 id="voices-modal-title">Voice Library</h3>
+          <p>Audition and select premier synthetic voices from ElevenLabs.</p>
+        </div>
+        <button class="btn btn-ghost btn-sm btn-close-modal" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Search bar -->
+        <div class="voice-search-bar">
+          <div class="search-input-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="voices-modal-search" placeholder="Search voices by name, accent, or style...">
+          </div>
+        </div>
+
+        <!-- Category filter chips -->
+        <div class="category-chips-row">
+          <button class="category-chip active" data-cat="free_tier">✓ Free Tier Ready</button>
+          <button class="category-chip" data-cat="all">All Voices</button>
+          <button class="category-chip" data-cat="narration">Narration & Audiobooks</button>
+          <button class="category-chip" data-cat="conversational">Conversational</button>
+          <button class="category-chip" data-cat="storytelling">Storytelling</button>
+          <button class="category-chip" data-cat="news">News & Authoritative</button>
+          <button class="category-chip" data-cat="social">Social & Dynamic</button>
+        </div>
+
+        <!-- Voices Grid -->
+        <div class="voices-grid-list" id="voices-modal-grid"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: API Key & Studio Settings
+       ======================================================================== -->
+  <div class="modal-backdrop" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-dialog" style="max-width: 580px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <h3 id="settings-modal-title">ElevenLabs API Settings</h3>
+          <p>Configure credentials for speech synthesis and voice library sync.</p>
+        </div>
+        <button class="btn btn-ghost btn-sm btn-close-modal" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div>
+            <label for="input-client-api-key" class="field-label">ElevenLabs API Key</label>
+            <input
+              type="password"
+              id="input-client-api-key"
+              class="field-select"
+              placeholder="xi-api-key (e.g. sk_... or your ElevenLabs key)"
+              autocomplete="off"
+            >
+            <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.35rem; line-height: 1.45;">
+              You can get an API key from your <a href="https://elevenlabs.io/app/settings/api-keys" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">ElevenLabs API Key Console</a>. You can also configure it on your server via <code>.env.local</code>.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn btn-secondary btn-sm" id="btn-validate-api-key">
+              Test Key & Check Quota
+            </button>
+          </div>
+
+          <!-- Test result display -->
+          <div id="api-key-test-result" style="display: none; padding: 0.75rem 1rem; border-radius: var(--radius-md); background: var(--bg-page-subtle); border: 1px solid var(--border-subtle); font-size: 0.85rem;"></div>
+
+          <div style="background: #FAFAF8; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.85rem 1rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            <strong style="color: var(--text-primary); display: block; margin-bottom: 0.2rem;">Privacy & Key Security</strong>
+            Keys are never exposed to public repositories. If entered here, your key is kept locally in your browser session and transmitted only via secure HTTPS requests directly to your local proxy server.
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm btn-close-modal">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="btn-save-settings">Save Credentials</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

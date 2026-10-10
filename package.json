@@ -1,0 +1,21 @@
+{
+  "name": "voxa-ai-tts-studio",
+  "version": "1.0.0",
+  "description": "VOXA — Elegant AI Text-to-Speech Studio powered by ElevenLabs API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test tests/api.test.js"
+  },
+  "keywords": [
+    "elevenlabs",
+    "text-to-speech",
+    "tts",
+    "audio",
+    "voice-studio",
+    "ai"
+  ],
+  "author": "VOXA Studio",
+  "license": "MIT"
+}
